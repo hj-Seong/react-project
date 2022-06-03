@@ -1,7 +1,11 @@
+import { useContext } from "react";
+import DataContext from "../context/DataContext";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Layout = () => {
+  const data = useContext(DataContext);
+
   return (
     <div>
       <Navbar bg="primary" variant="dark">

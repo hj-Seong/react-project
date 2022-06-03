@@ -9,6 +9,7 @@ const ProductionDisplay = () => {
         <Card.Title>책</Card.Title>
         <Card.Text>설명</Card.Text>
         <Button variant="primary">구매</Button>
+        {/** 카드 안에 사용할 모달컴포넌트 */}
         <CommentWriteform />
       </Card.Body>
     </Card>
