@@ -1,4 +1,6 @@
 // Context API를 이용해서 데이터 공용으로 사용하기
+// Context API에 관한 공식 홈페이지 내용 확인하기
+
 import { createContext, useState } from "react";
 
 // 내보낸 DataContext를 통해 value값을 넣어줘서 사용

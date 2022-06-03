@@ -1,11 +1,35 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
+import DataContext from "../context/DataContext";
 
 const CommentWriteform = () => {
+  const data = useContext(DataContext);
   const [show, setShow] = useState(false);
+  const [text, setText] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  // input 값을 가져오는 이벤트 함수
+  const onChange = (e) => {
+    setText(e.target.value);
+  };
+
+  // 버튼을 눌렀을때 값을 넣어주는 함수
+  const addComment = () => {
+    const nextComment = {
+      id: data.state.id,
+      user: data.state.user,
+      text: text,
+      product: null, //props 값으로 받아와서 넣기
+      img: null, // 기능 확인후 넣기
+    };
+    data.action.setComments([...data.state.comments, nextComment]);
+    data.action.setId(data.state.id + 1);
+
+    // 모달창 종료
+    setShow(false);
+  };
 
   return (
     <>
@@ -20,7 +44,7 @@ const CommentWriteform = () => {
         <Modal.Body>
           {/** 코멘트 적는 란 */}
           <FloatingLabel controlId="floatingTextarea2" label="Comments">
-            <Form.Control as="textarea" placeholder="Leave a comment here" style={{ height: "100px" }} />
+            <Form.Control onChange={onChange} as="textarea" placeholder="Leave a comment here" style={{ height: "100px" }} />
           </FloatingLabel>
           {/** 파일 가져오는 태그 */}
           <Form.Group controlId="formFile" className="mb-3">
@@ -32,7 +56,7 @@ const CommentWriteform = () => {
           <Button variant="secondary" onClick={handleClose}>
             취소
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={addComment}>
             작성
           </Button>
         </Modal.Footer>
